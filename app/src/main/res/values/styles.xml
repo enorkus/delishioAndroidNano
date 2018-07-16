@@ -8,10 +8,4 @@
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
-    <style name="BottomNavBar">
-        <item name="android:background">@color/primary</item>
-        <item name="itemBackground">@color/primary</item>
-        <item name="android:paddingBottom">48dp</item>
-    </style>
-
 </resources>

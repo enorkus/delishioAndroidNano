@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Delishio</string>
-    <string name="meal">Meal</string>
-    <string name="meal_plan">Meal Plan</string>
-    <string name="shopping_list">Shopping List</string>
+    <string name="meal">Meals</string>
+    <string name="meal_plan">Plans</string>
+    <string name="shopping_list">Shopping</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_meals_fragment">Hello Meals List fragment</string>
+    <string name="hello_plans_fragment">Hello Plans fragment</string>
+    <string name="hello_shopping_fragment">Hello Shopping fragment</string>
 </resources>
