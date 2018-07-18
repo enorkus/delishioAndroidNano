@@ -9,6 +9,7 @@ public class Meal implements Parcelable {
 
     private String name;
     private List<String> ingredients;
+    private String comments;
 
     public Meal(String name, List<String> ingredients) {
         this.name = name;
@@ -18,6 +19,7 @@ public class Meal implements Parcelable {
     protected Meal(Parcel in) {
         name = in.readString();
         ingredients = in.createStringArrayList();
+        comments = in.readString();
     }
 
     public static final Creator<Meal> CREATOR = new Creator<Meal>() {
@@ -41,6 +43,7 @@ public class Meal implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeStringList(ingredients);
+        parcel.writeString(comments);
     }
 
     public String getName() {
@@ -49,5 +52,9 @@ public class Meal implements Parcelable {
 
     public List<String> getIngredients() {
         return ingredients;
+    }
+
+    public String getComments() {
+        return comments;
     }
 }

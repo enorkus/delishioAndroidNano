@@ -1,15 +1,19 @@
 package com.enorkus.delishio.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.enorkus.delishio.R;
+import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.adapter.MealsListAdapter;
 import com.enorkus.delishio.entity.Meal;
 
@@ -23,6 +27,8 @@ public class MealsListFragment extends Fragment {
 
     @BindView(R.id.mealsListRecyclerView)
     protected RecyclerView mealsListRecyclerView;
+    @BindView(R.id.mealsListFab)
+    protected FloatingActionButton fab;
 
     public MealsListFragment() {
     }
@@ -41,6 +47,14 @@ public class MealsListFragment extends Fragment {
         }
         RecyclerView.Adapter adapter = new MealsListAdapter(meals);
         mealsListRecyclerView.setAdapter(adapter);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AddMealActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }

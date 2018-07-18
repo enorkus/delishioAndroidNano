@@ -8,4 +8,13 @@
     <string name="hello_meals_fragment">Hello Meals List fragment</string>
     <string name="hello_plans_fragment">Hello Plans fragment</string>
     <string name="hello_shopping_fragment">Hello Shopping fragment</string>
+
+
+    <!--Create meal-->
+    <string name="meal_name">Name</string>
+    <string name="meal_ingredient">Ingredient</string>
+    <string name="add_meal_ingredient">Add Ingredient</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+
 </resources>
