@@ -68,7 +68,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:elevation="0dp"
-                android:src="@drawable/ic_remove_black_24dp"
+                android:src="@drawable/ic_remove_white_24dp"
                 android:visibility="visible"
                 app:fabSize="mini" />
 

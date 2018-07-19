@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
@@ -48,6 +47,7 @@ public class MealsListFragment extends Fragment {
         RecyclerView.Adapter adapter = new MealsListAdapter(meals);
         mealsListRecyclerView.setAdapter(adapter);
 
+        fab.setImageResource(R.drawable.ic_remove_white_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
