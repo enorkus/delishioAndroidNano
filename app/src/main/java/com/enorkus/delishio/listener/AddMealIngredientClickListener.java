@@ -1,5 +1,6 @@
 package com.enorkus.delishio.listener;
 
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,18 +11,24 @@ import com.enorkus.delishio.activity.AddMealActivity;
 public class AddMealIngredientClickListener implements View.OnClickListener {
 
     private AddMealActivity ctx;
-    private LinearLayout ingredientsLayout;
 
-    public AddMealIngredientClickListener(AddMealActivity ctx, LinearLayout ingredientsLayout) {
+    public AddMealIngredientClickListener(AddMealActivity ctx) {
         this.ctx = ctx;
-        this.ingredientsLayout = ingredientsLayout;
     }
 
     @Override
     public void onClick(View view) {
-        LinearLayout layout = ctx.findViewById(R.id.ingredientsLinearLayout);
+        final LinearLayout mealIngredientslinearLayout = ctx.findViewById(R.id.ingredientsLinearLayout);
         LayoutInflater inflater = LayoutInflater.from(ctx);
-        View newRow  = inflater.inflate(R.layout.add_ingredient_row, layout, false);
-        layout.addView(newRow);
+        View newIngredientInput  = inflater.inflate(R.layout.add_ingredient_row, mealIngredientslinearLayout, false);
+//        FloatingActionButton removeIngredientBtn = newIngredientInput.findViewById(R.id.removeIngredientBtn);
+//        removeIngredientBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                LinearLayout parentLayout = (LinearLayout) view.getParent();
+//                mealIngredientslinearLayout.removeView(parentLayout);
+//            }
+//        });
+        mealIngredientslinearLayout.addView(newIngredientInput);
     }
 }

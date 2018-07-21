@@ -27,6 +27,6 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     private void setupLayout() {
-        addIngredientBtn.setOnClickListener(new AddMealIngredientClickListener(this ,ingredientsLayout));
+        addIngredientBtn.setOnClickListener(new AddMealIngredientClickListener(this));
     }
 }
