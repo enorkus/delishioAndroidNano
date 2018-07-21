@@ -11,11 +11,11 @@ import com.enorkus.delishio.entity.Meal;
 
 import java.util.List;
 
-public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.ViewHolder> {
+public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHolder> {
 
     private List<Meal> meals;
 
-    public MealsListAdapter(List<Meal> meals) {
+    public MealListAdapter(List<Meal> meals) {
         this.meals = meals;
     }
 
@@ -23,7 +23,7 @@ public class MealsListAdapter extends RecyclerView.Adapter<MealsListAdapter.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View view = inflater.inflate(R.layout.meals_list_item, parent, false);
+        View view = inflater.inflate(R.layout.list_item_meal, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }

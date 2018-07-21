@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
-import com.enorkus.delishio.adapter.MealsListAdapter;
+import com.enorkus.delishio.adapter.MealListAdapter;
 import com.enorkus.delishio.entity.Meal;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class MealsListFragment extends Fragment {
             Meal meal = new Meal("Meal Number " + i, null);
             meals.add(meal);
         }
-        RecyclerView.Adapter adapter = new MealsListAdapter(meals);
+        RecyclerView.Adapter adapter = new MealListAdapter(meals);
         mealsListRecyclerView.setAdapter(adapter);
 
         fab.setImageResource(R.drawable.ic_add_white_24dp);
