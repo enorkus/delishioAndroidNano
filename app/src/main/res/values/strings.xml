@@ -22,6 +22,7 @@
     <string name="save">Save</string>
     <string name="choose_galery">Choose from galery</string>
     <string name="search_internet">Search on internet</string>
+    <string name="search_example_cupcakes">Search example: Cupcakes</string>
 
     <string-array name="units">
         <item>g.</item>

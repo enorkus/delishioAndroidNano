@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.listener.AddMealIngredientClickListener;
 import com.enorkus.delishio.listener.MealImageClickListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -55,6 +56,13 @@ public class AddMealActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if(requestCode == SEARCH_IMAGE && resultCode == RESULT_OK) {
+            String pictureURL = data.getStringExtra(SearchMealImageActivity.EXTRA_MEAL_PICTURE_URL);
+            Picasso.with(this)
+                    .load(pictureURL)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_foreground)
+                    .into(mealPicture);
         }
     }
 }

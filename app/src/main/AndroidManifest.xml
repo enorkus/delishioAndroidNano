@@ -19,7 +19,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AddMealActivity" />
-        <activity android:name=".activity.SearchMealImageActivity"></activity>
+        <activity android:name=".activity.SearchMealImageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.AddMealActivity" />
+        </activity>
     </application>
 
 </manifest>

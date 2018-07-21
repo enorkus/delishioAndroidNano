@@ -1,6 +1,7 @@
 package com.enorkus.delishio.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.enorkus.delishio.R;
+import com.enorkus.delishio.activity.SearchMealImageActivity;
 import com.enorkus.delishio.entity.Picture;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class PictureListAdapter extends RecyclerView.Adapter<PictureListAdapter.ViewHolder> {
 
     private List<Picture> pictures;
-    private Context ctx;
+    private SearchMealImageActivity ctx;
 
-    public PictureListAdapter(Context ctx, List<Picture> response) {
+    public PictureListAdapter(SearchMealImageActivity ctx, List<Picture> response) {
         this.ctx = ctx;
         this.pictures = response;
     }
@@ -40,6 +44,15 @@ public class PictureListAdapter extends RecyclerView.Adapter<PictureListAdapter.
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.picture);
+        holder.picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra(SearchMealImageActivity.EXTRA_MEAL_PICTURE_URL, picture.getLargeImageURL());
+                ctx.setResult(RESULT_OK, intent);
+                ctx.finish();
+            }
+        });
     }
 
     @Override
