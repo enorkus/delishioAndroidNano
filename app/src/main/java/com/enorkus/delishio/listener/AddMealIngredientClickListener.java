@@ -18,17 +18,17 @@ public class AddMealIngredientClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        final LinearLayout mealIngredientslinearLayout = ctx.findViewById(R.id.ingredientsLinearLayout);
+        final LinearLayout mealIngredientsLinearLayout = ctx.findViewById(R.id.ingredientsLinearLayout);
         LayoutInflater inflater = LayoutInflater.from(ctx);
-        View newIngredientInput  = inflater.inflate(R.layout.add_ingredient_row, mealIngredientslinearLayout, false);
-//        FloatingActionButton removeIngredientBtn = newIngredientInput.findViewById(R.id.removeIngredientBtn);
-//        removeIngredientBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                LinearLayout parentLayout = (LinearLayout) view.getParent();
-//                mealIngredientslinearLayout.removeView(parentLayout);
-//            }
-//        });
-        mealIngredientslinearLayout.addView(newIngredientInput);
+        View newIngredientInput  = inflater.inflate(R.layout.add_ingredient_row, mealIngredientsLinearLayout, false);
+        FloatingActionButton removeIngredientBtn = newIngredientInput.findViewById(R.id.removeIngredientBtn);
+        removeIngredientBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout parentLayout = (LinearLayout) view.getParent();
+                mealIngredientsLinearLayout.removeView(parentLayout);
+            }
+        });
+        mealIngredientsLinearLayout.addView(newIngredientInput);
     }
 }

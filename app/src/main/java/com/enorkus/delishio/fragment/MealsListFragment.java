@@ -47,7 +47,7 @@ public class MealsListFragment extends Fragment {
         RecyclerView.Adapter adapter = new MealsListAdapter(meals);
         mealsListRecyclerView.setAdapter(adapter);
 
-        fab.setImageResource(R.drawable.ic_remove_white_24dp);
+        fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
