@@ -24,6 +24,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.AddMealActivity" />
         </activity>
+
+        <provider
+            android:authorities="com.enorkus.delishio"
+            android:name="com.enorkus.delishio.data.MealContentProvider"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

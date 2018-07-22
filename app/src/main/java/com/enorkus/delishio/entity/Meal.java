@@ -7,19 +7,22 @@ import java.util.List;
 
 public class Meal implements Parcelable {
 
+    private int id;
     private String name;
+    private String picturePath;
     private List<String> ingredients;
-    private String comments;
 
-    public Meal(String name, List<String> ingredients) {
+    public Meal(String name, String picturePath, List<String> ingredients) {
         this.name = name;
+        this.picturePath = picturePath;
         this.ingredients = ingredients;
     }
 
     protected Meal(Parcel in) {
+        id = in.readInt();
         name = in.readString();
+        picturePath = in.readString();
         ingredients = in.createStringArrayList();
-        comments = in.readString();
     }
 
     public static final Creator<Meal> CREATOR = new Creator<Meal>() {
@@ -41,20 +44,25 @@ public class Meal implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(name);
+        parcel.writeString(picturePath);
         parcel.writeStringList(ingredients);
-        parcel.writeString(comments);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<String> getIngredients() {
-        return ingredients;
+    public String getPicturePath() {
+        return picturePath;
     }
 
-    public String getComments() {
-        return comments;
+    public List<String> getIngredients() {
+        return ingredients;
     }
 }

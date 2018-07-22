@@ -2,6 +2,7 @@ package com.enorkus.delishio.fragment;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.adapter.MealListAdapter;
+import com.enorkus.delishio.data.DatabaseContract;
+import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Meal;
 
 import java.util.ArrayList;
@@ -40,11 +44,16 @@ public class MealsListFragment extends Fragment {
 
         mealsListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         List<Meal> meals = new ArrayList<>();
-        for(int i = 0; i < 50; i++) {
-            Meal meal = new Meal("Meal Number " + i, null);
-            meals.add(meal);
+
+        MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
+        Cursor cursor = helper.fetchAllMeals();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(DatabaseContract.MealEntry.COLUMN_NAME));
+            String picturePath = cursor.getString(cursor.getColumnIndex(DatabaseContract.MealEntry.COLUMN_PICTURE_PATH));
+            meals.add(new Meal(name, picturePath, null));
         }
-        RecyclerView.Adapter adapter = new MealListAdapter(meals);
+
+        RecyclerView.Adapter adapter = new MealListAdapter(meals, getContext());
         mealsListRecyclerView.setAdapter(adapter);
 
         fab.setImageResource(R.drawable.ic_add_white_24dp);
