@@ -21,13 +21,19 @@ public class DatabaseContract {
         }
     }
 
-//    public static final class IngredientEntry implements BaseColumns {
-//        public static final String TABLE_NAME = "ingredient";
-//        public static final String COLUMN_ID = "id";
-//        public static final String COLUMN_MEAL_ID = "mealId";
-//        public static final String COLUMN_NAME = "name";
-//        public static final String COLUMN_QUANTITY = "quantity";
-//        public static final String COLUMN_UNIT = "unit";
-//    }
+    public static final class IngredientEntry implements BaseColumns {
+        public static final String TABLE_NAME = "ingredient";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_MEAL_ID = "mealId";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_QUANTITY = "quantity";
+        public static final String COLUMN_UNIT = "unit";
+
+        public static final Uri INGREDIENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+
+        public static Uri buildIngredientUriWithId(long id) {
+            return INGREDIENT_URI.buildUpon().appendPath(String.valueOf(id)).build();
+        }
+    }
 
 }

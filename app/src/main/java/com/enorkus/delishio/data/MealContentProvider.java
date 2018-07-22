@@ -11,12 +11,15 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.enorkus.delishio.entity.Ingredient;
+
 import static com.enorkus.delishio.data.DatabaseContract.*;
 
 public class MealContentProvider extends ContentProvider {
 
     public static final int MEAL = 100;
     public static final int MEAL_BY_ID = 101;
+    public static final int INGREDIENT = 200;
 
     private DatabaseHelper helper;
 
@@ -28,6 +31,7 @@ public class MealContentProvider extends ContentProvider {
         final String authority = DatabaseContract.AUTHORITY;
         matcher.addURI(authority, MealEntry.TABLE_NAME, MEAL);
         matcher.addURI(authority, MealEntry.TABLE_NAME + "/#", MEAL_BY_ID);
+        matcher.addURI(authority, IngredientEntry.TABLE_NAME, INGREDIENT);
         return matcher;
     }
 
@@ -88,7 +92,7 @@ public class MealContentProvider extends ContentProvider {
 
         Uri result;
         switch (uriMatcher.match(uri)) {
-            case MEAL:
+            case MEAL: {
                 long id = db.insert(MealEntry.TABLE_NAME, null, contentValues);
                 if (id > 0) {
                     result = MealEntry.buildMealUriWithId(id);
@@ -96,6 +100,16 @@ public class MealContentProvider extends ContentProvider {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
                 break;
+            }
+            case INGREDIENT: {
+                long id = db.insert(IngredientEntry.TABLE_NAME, null, contentValues);
+                if (id > 0) {
+                    result = IngredientEntry.buildIngredientUriWithId(id);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri " + uri);
         }

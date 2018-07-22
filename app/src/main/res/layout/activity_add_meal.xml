@@ -95,6 +95,7 @@
                         </android.support.design.widget.TextInputLayout>
 
                         <Spinner
+                            android:id="@+id/ingredientUnitsSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -118,7 +119,7 @@
                             android:hint="@string/meal_ingredient">
 
                             <EditText
-                                android:id="@+id/mealIngredient"
+                                android:id="@+id/mealIngredientName0"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="text" />

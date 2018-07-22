@@ -43,16 +43,8 @@ public class MealsListFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         mealsListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        List<Meal> meals = new ArrayList<>();
-
         MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
-        Cursor cursor = helper.fetchAllMeals();
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(DatabaseContract.MealEntry.COLUMN_NAME));
-            String picturePath = cursor.getString(cursor.getColumnIndex(DatabaseContract.MealEntry.COLUMN_PICTURE_PATH));
-            meals.add(new Meal(name, picturePath, null));
-        }
-
+        List<Meal> meals = helper.fetchAllMeals();
         RecyclerView.Adapter adapter = new MealListAdapter(meals, getContext());
         mealsListRecyclerView.setAdapter(adapter);
 

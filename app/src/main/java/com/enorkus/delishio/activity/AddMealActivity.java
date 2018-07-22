@@ -3,7 +3,6 @@ package com.enorkus.delishio.activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -12,14 +11,14 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.enorkus.delishio.R;
-import com.enorkus.delishio.data.DatabaseContract;
 import com.enorkus.delishio.data.MealContentProviderHelper;
+import com.enorkus.delishio.entity.Ingredient;
 import com.enorkus.delishio.entity.Meal;
 import com.enorkus.delishio.listener.AddMealIngredientClickListener;
 import com.enorkus.delishio.listener.MealImageClickListener;
@@ -34,8 +33,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.enorkus.delishio.data.DatabaseContract.*;
-
 public class AddMealActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1;
@@ -44,14 +41,22 @@ public class AddMealActivity extends AppCompatActivity {
     protected Button addIngredientBtn;
     @BindView(R.id.ingredientsLinearLayout)
     protected LinearLayout ingredientsLayout;
-    @BindView(R.id.mealPicture)
-    protected ImageView mealPicture;
-    @BindView(R.id.mealNameInput)
-    protected TextView mealNameInput;
     @BindView(R.id.addMealSaveBtn)
     protected Button saveMealBtn;
     @BindView(R.id.addMealCancelBtn)
     protected Button cancelBtn;
+
+    @BindView(R.id.mealPicture)
+    protected ImageView mealPicture;
+    @BindView(R.id.mealNameInput)
+    protected EditText mealNameInput;
+    @BindView(R.id.ingredienQuantity)
+    protected EditText ingredientQuantityInput;
+    @BindView(R.id.ingredientUnitsSpinner)
+    protected Spinner ingredientUnitSpinner;
+    @BindView(R.id.mealIngredientName0)
+    protected EditText ingredientNameInput;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,8 @@ public class AddMealActivity extends AppCompatActivity {
     }
 
     private void setupLayout() {
-        addIngredientBtn.setOnClickListener(new AddMealIngredientClickListener(this));
+        final AddMealIngredientClickListener listener = new AddMealIngredientClickListener(this);
+        addIngredientBtn.setOnClickListener(listener);
         mealPicture.setOnClickListener(new MealImageClickListener(this));
         saveMealBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +82,26 @@ public class AddMealActivity extends AppCompatActivity {
                 //Store image
 
                 MealContentProviderHelper helper = new MealContentProviderHelper(view.getContext());
-                helper.saveMeal(new Meal(mealNameInput.getText().toString(), picturePath, null));
+
+                List<Ingredient> ingredients = new ArrayList<>();
+                //Default ingredient
+                ingredients.add(new Ingredient(0,
+                        ingredientNameInput.getText().toString(),
+                        Double.valueOf(ingredientQuantityInput.getText().toString()),
+                        ingredientUnitSpinner.getSelectedItem().toString()));
+                //Added Ingredients
+                for(View row : listener.getIngredientRows()){
+                    EditText ingredientName = row.findViewById(R.id.ingredientRowName);
+                    EditText ingredientQuantity = row.findViewById(R.id.ingredientRowQuantity);
+                    Spinner ingredientUnit = row.findViewById(R.id.ingredientRowUnitsSpinner);
+
+                    String name = ingredientName.getText().toString();
+                    double quantity = Double.parseDouble(ingredientQuantity.getText().toString());
+                    String unit = ingredientUnit.getSelectedItem().toString();
+                    ingredients.add(new Ingredient(0, name, quantity, unit));
+                }
+
+                helper.saveMeal(new Meal(mealNameInput.getText().toString(), picturePath, ingredients));
             }
         });
     }
