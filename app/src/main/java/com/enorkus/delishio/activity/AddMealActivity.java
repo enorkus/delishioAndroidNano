@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Ingredient;
@@ -70,6 +71,12 @@ public class AddMealActivity extends AppCompatActivity {
         final AddMealIngredientClickListener listener = new AddMealIngredientClickListener(this);
         addIngredientBtn.setOnClickListener(listener);
         mealPicture.setOnClickListener(new MealImageClickListener(this));
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         saveMealBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +109,10 @@ public class AddMealActivity extends AppCompatActivity {
                 }
 
                 helper.saveMeal(new Meal(mealNameInput.getText().toString(), picturePath, ingredients));
+                Intent intent = new Intent(view.getContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
             }
         });
     }

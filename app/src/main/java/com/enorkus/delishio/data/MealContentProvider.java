@@ -20,6 +20,7 @@ public class MealContentProvider extends ContentProvider {
     public static final int MEAL = 100;
     public static final int MEAL_BY_ID = 101;
     public static final int INGREDIENT = 200;
+    public static final int INGREDIENT_BY_MEAL_ID = 201;
 
     private DatabaseHelper helper;
 
@@ -32,6 +33,7 @@ public class MealContentProvider extends ContentProvider {
         matcher.addURI(authority, MealEntry.TABLE_NAME, MEAL);
         matcher.addURI(authority, MealEntry.TABLE_NAME + "/#", MEAL_BY_ID);
         matcher.addURI(authority, IngredientEntry.TABLE_NAME, INGREDIENT);
+        matcher.addURI(authority, IngredientEntry.TABLE_NAME + "/#", INGREDIENT_BY_MEAL_ID);
         return matcher;
     }
 
@@ -66,6 +68,19 @@ public class MealContentProvider extends ContentProvider {
                         projection,
                         selection,
                         selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case INGREDIENT_BY_MEAL_ID: {
+                String mealId = uri.getLastPathSegment();
+                cursor = helper.getReadableDatabase().query(
+                        IngredientEntry.TABLE_NAME,
+                        projection,
+                        "mealId=?",
+                        new String[]{mealId},
                         null,
                         null,
                         sortOrder

@@ -26,10 +26,11 @@
         </activity>
 
         <provider
+            android:name=".data.MealContentProvider"
             android:authorities="com.enorkus.delishio"
-            android:name="com.enorkus.delishio.data.MealContentProvider"
-            android:exported="false"/>
+            android:exported="false" />
 
+        <activity android:name=".activity.MealDetailsActivity"></activity>
     </application>
 
 </manifest>

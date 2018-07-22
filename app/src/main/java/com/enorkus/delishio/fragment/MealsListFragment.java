@@ -28,6 +28,8 @@ import butterknife.ButterKnife;
 
 public class MealsListFragment extends Fragment {
 
+    public static final String EXTRA_MEAL = MealsListFragment.class.getSimpleName() + "_EXTRA_MEAL";
+
     @BindView(R.id.mealsListRecyclerView)
     protected RecyclerView mealsListRecyclerView;
     @BindView(R.id.mealsListFab)

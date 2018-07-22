@@ -18,11 +18,18 @@ public class Meal implements Parcelable {
         this.ingredients = ingredients;
     }
 
+    public Meal(int id, String name, String picturePath, List<Ingredient> ingredients) {
+        this.id = id;
+        this.name = name;
+        this.picturePath = picturePath;
+        this.ingredients = ingredients;
+    }
+
     protected Meal(Parcel in) {
         id = in.readInt();
         name = in.readString();
         picturePath = in.readString();
-        ingredients = in.readArrayList(null);
+        ingredients = in.readArrayList(getClass().getClassLoader());
     }
 
     public static final Creator<Meal> CREATOR = new Creator<Meal>() {

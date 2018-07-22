@@ -1,6 +1,7 @@
 package com.enorkus.delishio.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enorkus.delishio.R;
+import com.enorkus.delishio.activity.MealDetailsActivity;
 import com.enorkus.delishio.entity.Meal;
+import com.enorkus.delishio.fragment.MealsListFragment;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -39,6 +42,14 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHo
         final Meal meal = meals.get(position);
         holder.mealName.setText(meal.getName());
         loadImage(meal.getPicturePath(), holder.mealImage);
+        holder.mealImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), MealDetailsActivity.class);
+                intent.putExtra(MealsListFragment.EXTRA_MEAL, meal);
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     private void loadImage(String picturePath, ImageView mealImageView) {
