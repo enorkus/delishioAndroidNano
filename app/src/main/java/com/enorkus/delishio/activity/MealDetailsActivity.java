@@ -2,10 +2,13 @@ package com.enorkus.delishio.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enorkus.delishio.R;
+import com.enorkus.delishio.adapter.IngredientListAdapter;
 import com.enorkus.delishio.entity.Meal;
 import com.enorkus.delishio.fragment.MealsListFragment;
 import com.squareup.picasso.Picasso;
@@ -21,6 +24,8 @@ public class MealDetailsActivity extends AppCompatActivity {
     protected ImageView mealPicture;
     @BindView(R.id.mealDetails_mealName)
     protected TextView mealName;
+    @BindView(R.id.mealDetails_ingredientList)
+    protected RecyclerView ingredientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,5 +45,8 @@ public class MealDetailsActivity extends AppCompatActivity {
                 .into(mealPicture);
 
         mealName.setText(meal.getName());
+        ingredientList.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.Adapter adapter = new IngredientListAdapter(this, meal.getIngredients());
+        ingredientList.setAdapter(adapter);
     }
 }

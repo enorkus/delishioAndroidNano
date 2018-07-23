@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHolder> {
 
-    private List<Meal> meals;
+    protected List<Meal> meals;
     private Context ctx;
 
     public MealListAdapter(List<Meal> meals, Context ctx) {
@@ -52,7 +52,7 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHo
         });
     }
 
-    private void loadImage(String picturePath, ImageView mealImageView) {
+    protected void loadImage(String picturePath, ImageView mealImageView) {
             String dir = picturePath.substring(0, picturePath.lastIndexOf("/"));
             String pictureName = picturePath.substring(picturePath.lastIndexOf("/") + 1, picturePath.lastIndexOf("."));
             File file = new File(dir, pictureName);
