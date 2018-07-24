@@ -31,7 +31,8 @@
             android:exported="false" />
 
         <activity android:name=".activity.MealDetailsActivity" />
-        <activity android:name=".activity.AddMealPlanActivity"></activity>
+        <activity android:name=".activity.AddMealPlanActivity" />
+        <activity android:name=".activity.MealPlanDetailsActivity"></activity>
     </application>
 
 </manifest>

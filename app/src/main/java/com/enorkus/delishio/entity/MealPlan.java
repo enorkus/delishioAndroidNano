@@ -10,6 +10,11 @@ public class MealPlan implements Parcelable {
     private String name;
     private List<Meal> meals;
 
+    public MealPlan(String name, List<Meal> meals) {
+        this.name = name;
+        this.meals = meals;
+    }
+
     protected MealPlan(Parcel in) {
         name = in.readString();
         meals = in.createTypedArrayList(Meal.CREATOR);
@@ -36,5 +41,13 @@ public class MealPlan implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeTypedList(meals);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
     }
 }

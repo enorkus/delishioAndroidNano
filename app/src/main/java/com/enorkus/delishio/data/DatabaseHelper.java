@@ -9,7 +9,7 @@ import static com.enorkus.delishio.data.DatabaseContract.*;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "delishio.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
     private static final String CREATE_MEALS_TABLE = "CREATE TABLE "
             + MealEntry.TABLE_NAME
             + " (" + MealEntry.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -25,6 +25,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + IngredientEntry.COLUMN_UNIT + " TEXT NOT NULL"
             + ");";
 
+    private static final String CREATE_MEAL_PLANS_TABLE = "CREATE TABLE "
+            + MealPlanEntry.TABLE_NAME + " ("
+            + MealPlanEntry.COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, "
+            + MealPlanEntry.COLUMN_NAME + " TEXT NOT NULL"
+            + ");";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -32,14 +38,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_MEALS_TABLE);
-        sqLiteDatabase.execSQL("PRAGMA foreign_keys=ON;");
         sqLiteDatabase.execSQL(CREATE_INGREDIENTS_TABLE);
+        sqLiteDatabase.execSQL(CREATE_MEAL_PLANS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MealEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + IngredientEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MealPlanEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

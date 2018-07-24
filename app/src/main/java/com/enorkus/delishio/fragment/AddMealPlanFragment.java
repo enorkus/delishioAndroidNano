@@ -9,13 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealPlanActivity;
 import com.enorkus.delishio.adapter.ChooseMealsListAdapter;
+import com.enorkus.delishio.adapter.MealListAdapter;
+import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Meal;
+import com.enorkus.delishio.entity.MealPlan;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +31,8 @@ public class AddMealPlanFragment extends Fragment {
     protected Button chooseMealsBtn;
     @BindView(R.id.addMealPlan_selectedMeals)
     protected RecyclerView selectedMealsList;
+    @BindView(R.id.addMealPlan_mealPlanName)
+    protected EditText mealPlanName;
 
     private AddMealPlanActivity activity;
 
@@ -40,16 +47,18 @@ public class AddMealPlanFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         selectedMealsList.setLayoutManager(new LinearLayoutManager(activity));
-        selectedMealsList.setAdapter(new ChooseMealsListAdapter(activity != null ? activity.getSelectedMeals() : new ArrayList<Meal>(), activity));
+        selectedMealsList.setAdapter(new MealListAdapter(activity != null ? activity.getSelectedMeals() : new ArrayList<Meal>(), activity));
 
         activity = (AddMealPlanActivity) getActivity();
         activity.setFABOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //save meal plan
+                MealPlan mealPlan = new MealPlan(mealPlanName.getText().toString(), activity.getSelectedMeals());
+                MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
+                helper.saveMealPlan(mealPlan);
+                getActivity().onBackPressed();
             }
         });
-
 
         chooseMealsBtn.setOnClickListener(new View.OnClickListener() {
             @Override

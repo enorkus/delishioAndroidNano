@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import com.enorkus.delishio.entity.Ingredient;
 import com.enorkus.delishio.entity.Meal;
+import com.enorkus.delishio.entity.MealPlan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,4 +65,20 @@ public class MealContentProviderHelper {
         return meals;
     }
 
+    public List<MealPlan> fetchAllMealPlans() {
+        Cursor cursor =  ctx.getContentResolver().query(MealPlanEntry.MEAL_PLAN_URI, null, null, null, null, null);
+        List<MealPlan> mealPlans = new ArrayList<>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(MealPlanEntry.COLUMN_NAME));
+            MealPlan mealPlan = new MealPlan(name, new ArrayList<Meal>());
+            mealPlans.add(mealPlan);
+        }
+        return mealPlans;
+    }
+
+    public Uri saveMealPlan(MealPlan mealPlan) {
+        ContentValues values = new ContentValues();
+        values.put(MealPlanEntry.COLUMN_NAME, mealPlan.getName());
+        return ctx.getContentResolver().insert(MealPlanEntry.MEAL_PLAN_URI, values);
+    }
 }

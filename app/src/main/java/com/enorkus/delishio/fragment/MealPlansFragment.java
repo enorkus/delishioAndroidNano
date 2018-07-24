@@ -11,12 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.activity.AddMealPlanActivity;
 import com.enorkus.delishio.adapter.MealListAdapter;
+import com.enorkus.delishio.adapter.MealPLanListAdapter;
 import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Meal;
+import com.enorkus.delishio.entity.MealPlan;
 
 import java.util.List;
 
@@ -40,10 +43,10 @@ public class MealPlansFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         mealPlansRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
-//        List<MealPlan> mealPlans = helper.fetchAllMeals();
-//        RecyclerView.Adapter adapter = new MealListAdapter(mealPlans, getContext());
-//        mealPlansRecyclerView.setAdapter(adapter);
+        MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
+        List<MealPlan> mealPlans = helper.fetchAllMealPlans();
+        RecyclerView.Adapter adapter = new MealPLanListAdapter(mealPlans, getContext());
+        mealPlansRecyclerView.setAdapter(adapter);
 
         fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setOnClickListener(new View.OnClickListener() {

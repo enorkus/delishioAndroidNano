@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/mealPlanNameInput"
+            android:id="@+id/addMealPlan_mealPlanName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -31,7 +31,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/addMealPlan_selectedMeals"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"

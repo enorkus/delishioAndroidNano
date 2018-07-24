@@ -21,6 +21,8 @@ public class MealContentProvider extends ContentProvider {
     public static final int MEAL_BY_ID = 101;
     public static final int INGREDIENT = 200;
     public static final int INGREDIENT_BY_MEAL_ID = 201;
+    public static final int MEAL_PLAN = 300;
+    public static final int MEAL_PLAN_BY_ID = 201;
 
     private DatabaseHelper helper;
 
@@ -34,6 +36,8 @@ public class MealContentProvider extends ContentProvider {
         matcher.addURI(authority, MealEntry.TABLE_NAME + "/#", MEAL_BY_ID);
         matcher.addURI(authority, IngredientEntry.TABLE_NAME, INGREDIENT);
         matcher.addURI(authority, IngredientEntry.TABLE_NAME + "/#", INGREDIENT_BY_MEAL_ID);
+        matcher.addURI(authority, MealPlanEntry.TABLE_NAME, MEAL_PLAN);
+        matcher.addURI(authority, MealPlanEntry.TABLE_NAME + "/#", MEAL_PLAN_BY_ID);
         return matcher;
     }
 
@@ -87,6 +91,18 @@ public class MealContentProvider extends ContentProvider {
                 );
                 break;
             }
+            case MEAL_PLAN: {
+                cursor = helper.getReadableDatabase().query(
+                        MealPlanEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -120,6 +136,15 @@ public class MealContentProvider extends ContentProvider {
                 long id = db.insert(IngredientEntry.TABLE_NAME, null, contentValues);
                 if (id > 0) {
                     result = IngredientEntry.buildIngredientUriWithId(id);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case MEAL_PLAN: {
+                long id = db.insert(MealPlanEntry.TABLE_NAME, null, contentValues);
+                if (id > 0) {
+                    result = MealPlanEntry.buildMealPlanUriWithId(id);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
