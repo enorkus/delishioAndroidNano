@@ -48,4 +48,17 @@ public class DatabaseContract {
         }
     }
 
+    public static final class MealMealPlanRelationshipEntry implements BaseColumns {
+        public static final String TABLE_NAME = "mealMealPlanRelationship";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_MEAL_ID = "mealId";
+        public static final String COLUMN_MEAL_PLAN_ID = "mealPlanId";
+
+        public static final Uri MEAL_MEAL_PLAN_RELATIONSHIP_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+
+        public static Uri buildMealPlanUriWithId(long id) {
+            return MEAL_MEAL_PLAN_RELATIONSHIP_URI.buildUpon().appendPath(String.valueOf(id)).build();
+        }
+    }
+
 }

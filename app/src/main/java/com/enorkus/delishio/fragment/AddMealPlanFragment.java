@@ -56,7 +56,7 @@ public class AddMealPlanFragment extends Fragment {
                 MealPlan mealPlan = new MealPlan(mealPlanName.getText().toString(), activity.getSelectedMeals());
                 MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
                 helper.saveMealPlan(mealPlan);
-                getActivity().onBackPressed();
+                getActivity().finish();
             }
         });
 

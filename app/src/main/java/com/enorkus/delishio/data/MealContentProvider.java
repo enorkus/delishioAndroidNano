@@ -1,7 +1,6 @@
 package com.enorkus.delishio.data;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -10,8 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import com.enorkus.delishio.entity.Ingredient;
 
 import static com.enorkus.delishio.data.DatabaseContract.*;
 
@@ -22,7 +19,9 @@ public class MealContentProvider extends ContentProvider {
     public static final int INGREDIENT = 200;
     public static final int INGREDIENT_BY_MEAL_ID = 201;
     public static final int MEAL_PLAN = 300;
-    public static final int MEAL_PLAN_BY_ID = 201;
+    public static final int MEAL_PLAN_BY_ID = 301;
+    public static final int MEAL_MEAL_PLAN_RELATIONSHIP = 400;
+    public static final int MEAL_IDS_BY_MEAL_PLAN_ID = 401;
 
     private DatabaseHelper helper;
 
@@ -38,6 +37,8 @@ public class MealContentProvider extends ContentProvider {
         matcher.addURI(authority, IngredientEntry.TABLE_NAME + "/#", INGREDIENT_BY_MEAL_ID);
         matcher.addURI(authority, MealPlanEntry.TABLE_NAME, MEAL_PLAN);
         matcher.addURI(authority, MealPlanEntry.TABLE_NAME + "/#", MEAL_PLAN_BY_ID);
+        matcher.addURI(authority, MealMealPlanRelationshipEntry.TABLE_NAME, MEAL_MEAL_PLAN_RELATIONSHIP);
+        matcher.addURI(authority, MealMealPlanRelationshipEntry.TABLE_NAME + "/#", MEAL_IDS_BY_MEAL_PLAN_ID);
         return matcher;
     }
 
@@ -103,6 +104,19 @@ public class MealContentProvider extends ContentProvider {
                 );
                 break;
             }
+            case MEAL_IDS_BY_MEAL_PLAN_ID: {
+                String mealPlanId = uri.getLastPathSegment();
+                cursor = helper.getReadableDatabase().query(
+                        MealMealPlanRelationshipEntry.TABLE_NAME,
+                        projection,
+                        "mealPlanId=?",
+                        new String[]{mealPlanId},
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -145,6 +159,15 @@ public class MealContentProvider extends ContentProvider {
                 long id = db.insert(MealPlanEntry.TABLE_NAME, null, contentValues);
                 if (id > 0) {
                     result = MealPlanEntry.buildMealPlanUriWithId(id);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case MEAL_MEAL_PLAN_RELATIONSHIP: {
+                long id = db.insert(MealMealPlanRelationshipEntry.TABLE_NAME, null, contentValues);
+                if (id > 0) {
+                    result = MealMealPlanRelationshipEntry.buildMealPlanUriWithId(id);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }

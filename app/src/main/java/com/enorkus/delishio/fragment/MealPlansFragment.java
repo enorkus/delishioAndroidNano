@@ -11,14 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
-import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.activity.AddMealPlanActivity;
-import com.enorkus.delishio.adapter.MealListAdapter;
 import com.enorkus.delishio.adapter.MealPLanListAdapter;
 import com.enorkus.delishio.data.MealContentProviderHelper;
-import com.enorkus.delishio.entity.Meal;
 import com.enorkus.delishio.entity.MealPlan;
 
 import java.util.List;
@@ -33,6 +29,9 @@ public class MealPlansFragment extends Fragment {
     @BindView(R.id.mealPlansFab)
     protected FloatingActionButton fab;
 
+    private MealPLanListAdapter adapter;
+    private MealContentProviderHelper contentHelper;
+
     public MealPlansFragment() {
     }
 
@@ -43,9 +42,9 @@ public class MealPlansFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         mealPlansRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        MealContentProviderHelper helper = new MealContentProviderHelper(getContext());
-        List<MealPlan> mealPlans = helper.fetchAllMealPlans();
-        RecyclerView.Adapter adapter = new MealPLanListAdapter(mealPlans, getContext());
+        contentHelper = new MealContentProviderHelper(getContext());
+        List<MealPlan> mealPlans = contentHelper.fetchAllMealPlans();
+        adapter = new MealPLanListAdapter(mealPlans, getContext());
         mealPlansRecyclerView.setAdapter(adapter);
 
         fab.setImageResource(R.drawable.ic_add_white_24dp);
@@ -53,11 +52,18 @@ public class MealPlansFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddMealPlanActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
         return rootView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        List<MealPlan> mealPlans = contentHelper.fetchAllMealPlans();
+        adapter.setMealPlans(mealPlans);
+        adapter.notifyDataSetChanged();
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

@@ -7,8 +7,15 @@ import java.util.List;
 
 public class MealPlan implements Parcelable {
 
+    private int id;
     private String name;
     private List<Meal> meals;
+
+    public MealPlan(int id, String name, List<Meal> meals) {
+        this.id = id;
+        this.name = name;
+        this.meals = meals;
+    }
 
     public MealPlan(String name, List<Meal> meals) {
         this.name = name;
@@ -16,6 +23,7 @@ public class MealPlan implements Parcelable {
     }
 
     protected MealPlan(Parcel in) {
+        id = in.readInt();
         name = in.readString();
         meals = in.createTypedArrayList(Meal.CREATOR);
     }
@@ -39,6 +47,7 @@ public class MealPlan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeTypedList(meals);
     }
@@ -49,5 +58,9 @@ public class MealPlan implements Parcelable {
 
     public List<Meal> getMeals() {
         return meals;
+    }
+
+    public int getId() {
+        return id;
     }
 }

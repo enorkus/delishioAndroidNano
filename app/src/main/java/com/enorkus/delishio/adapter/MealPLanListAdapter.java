@@ -53,6 +53,10 @@ public class MealPLanListAdapter extends RecyclerView.Adapter<MealPLanListAdapte
         return mealPlans.size();
     }
 
+    public void setMealPlans(List<MealPlan> mealPlans) {
+        this.mealPlans = mealPlans;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mealPlanName;
