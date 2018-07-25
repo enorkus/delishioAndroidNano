@@ -2,11 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menuMeal"
+        android:icon="@drawable/ic_local_dining_white_24dp"
         android:title="@string/meal" />
     <item
         android:id="@+id/menuMealPlan"
+        android:icon="@drawable/baseline_list_alt_white_48dp"
         android:title="@string/meal_plan" />
     <item
         android:id="@+id/menuShoppingList"
+        android:icon="@drawable/ic_shopping_cart_white_24dp"
         android:title="@string/shopping_list" />
 </menu>

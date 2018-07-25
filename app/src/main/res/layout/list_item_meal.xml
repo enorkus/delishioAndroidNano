@@ -17,13 +17,17 @@
     <ImageView
         android:id="@+id/mealsListMealImage"
         android:scaleType="centerCrop"
+        android:foreground="@drawable/meal_picture_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/listItemMeal"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="start|bottom"
+        android:padding="16dp"
+        android:textSize="24sp" />
 
 </android.support.v7.widget.CardView>

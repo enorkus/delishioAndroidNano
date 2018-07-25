@@ -29,6 +29,7 @@
         android:background="@color/primary"
         app:itemBackground="@color/primary"
         app:itemTextColor="@drawable/bottom_nav_color_selector"
+        app:itemIconTint="@color/white"
         app:menu="@menu/main_menu"
         android:paddingBottom="48dp"/>
 
