@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.enorkus.delishio.entity.ShoppingList;
+
 import static com.enorkus.delishio.data.DatabaseContract.*;
 
 public class MealContentProvider extends ContentProvider {
@@ -22,6 +24,9 @@ public class MealContentProvider extends ContentProvider {
     public static final int MEAL_PLAN_BY_ID = 301;
     public static final int MEAL_MEAL_PLAN_RELATIONSHIP = 400;
     public static final int MEAL_IDS_BY_MEAL_PLAN_ID = 401;
+    public static final int SHOPPING_LIST = 500;
+    public static final int SHOPPING_LIST_INGREDIENT_RELATIONSHIP = 502;
+    public static final int INGREDIENT_IDS_BY_SHOPPING_LIST_ID = 503;
 
     private DatabaseHelper helper;
 
@@ -37,8 +42,11 @@ public class MealContentProvider extends ContentProvider {
         matcher.addURI(authority, IngredientEntry.TABLE_NAME + "/#", INGREDIENT_BY_MEAL_ID);
         matcher.addURI(authority, MealPlanEntry.TABLE_NAME, MEAL_PLAN);
         matcher.addURI(authority, MealPlanEntry.TABLE_NAME + "/#", MEAL_PLAN_BY_ID);
-        matcher.addURI(authority, MealMealPlanRelationshipEntry.TABLE_NAME, MEAL_MEAL_PLAN_RELATIONSHIP);
-        matcher.addURI(authority, MealMealPlanRelationshipEntry.TABLE_NAME + "/#", MEAL_IDS_BY_MEAL_PLAN_ID);
+        matcher.addURI(authority, MealPlanMealRelationshipEntry.TABLE_NAME, MEAL_MEAL_PLAN_RELATIONSHIP);
+        matcher.addURI(authority, MealPlanMealRelationshipEntry.TABLE_NAME + "/#", MEAL_IDS_BY_MEAL_PLAN_ID);
+        matcher.addURI(authority, ShoppingListEntry.TABLE_NAME, SHOPPING_LIST);
+        matcher.addURI(authority, ShoppingListIngredientRelationshipEntry.TABLE_NAME, SHOPPING_LIST_INGREDIENT_RELATIONSHIP);
+        matcher.addURI(authority, ShoppingListIngredientRelationshipEntry.TABLE_NAME + "/#", INGREDIENT_IDS_BY_SHOPPING_LIST_ID);
         return matcher;
     }
 
@@ -107,9 +115,34 @@ public class MealContentProvider extends ContentProvider {
             case MEAL_IDS_BY_MEAL_PLAN_ID: {
                 String mealPlanId = uri.getLastPathSegment();
                 cursor = helper.getReadableDatabase().query(
-                        MealMealPlanRelationshipEntry.TABLE_NAME,
+                        MealPlanMealRelationshipEntry.TABLE_NAME,
                         projection,
                         "mealPlanId=?",
+                        new String[]{mealPlanId},
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case SHOPPING_LIST: {
+                cursor = helper.getReadableDatabase().query(
+                        ShoppingListEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            case INGREDIENT_IDS_BY_SHOPPING_LIST_ID: {
+                String mealPlanId = uri.getLastPathSegment();
+                cursor = helper.getReadableDatabase().query(
+                        ShoppingListIngredientRelationshipEntry.TABLE_NAME,
+                        projection,
+                        "shoppingListId=?",
                         new String[]{mealPlanId},
                         null,
                         null,
@@ -165,9 +198,27 @@ public class MealContentProvider extends ContentProvider {
                 break;
             }
             case MEAL_MEAL_PLAN_RELATIONSHIP: {
-                long id = db.insert(MealMealPlanRelationshipEntry.TABLE_NAME, null, contentValues);
+                long id = db.insert(MealPlanMealRelationshipEntry.TABLE_NAME, null, contentValues);
                 if (id > 0) {
-                    result = MealMealPlanRelationshipEntry.buildMealPlanUriWithId(id);
+                    result = MealPlanMealRelationshipEntry.buildMealPlanUriWithId(id);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case SHOPPING_LIST: {
+                long id = db.insert(ShoppingListEntry.TABLE_NAME, null, contentValues);
+                if (id > 0) {
+                    result = ShoppingListEntry.buildShoppingListUriWithId(id);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            }
+            case SHOPPING_LIST_INGREDIENT_RELATIONSHIP: {
+                long id = db.insert(ShoppingListIngredientRelationshipEntry.TABLE_NAME, null, contentValues);
+                if (id > 0) {
+                    result = ShoppingListIngredientRelationshipEntry.buildShoppingListIngredientRelationshipUriWithId(id);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }

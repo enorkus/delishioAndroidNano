@@ -8,6 +8,7 @@ import android.net.Uri;
 import com.enorkus.delishio.entity.Ingredient;
 import com.enorkus.delishio.entity.Meal;
 import com.enorkus.delishio.entity.MealPlan;
+import com.enorkus.delishio.entity.ShoppingList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,10 +61,11 @@ public class MealContentProviderHelper {
         Cursor ingredientsCursor = ctx.getContentResolver().query(IngredientEntry.buildIngredientUriWithId(mealId), null, null, null, null, null);
         List<Ingredient> ingredients = new ArrayList<>();
         for (ingredientsCursor.moveToFirst(); !ingredientsCursor.isAfterLast(); ingredientsCursor.moveToNext()) {
+            int ingredientId = ingredientsCursor.getInt(ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_ID));
             String ingredientName = ingredientsCursor.getString(ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_NAME));
             double ingredientQuantity = ingredientsCursor.getDouble(ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY));
             String ingredientUnit = ingredientsCursor.getString(ingredientsCursor.getColumnIndex(IngredientEntry.COLUMN_UNIT));
-            Ingredient ingredient = new Ingredient(mealId, ingredientName, ingredientQuantity, ingredientUnit);
+            Ingredient ingredient = new Ingredient(ingredientId, mealId, ingredientName, ingredientQuantity, ingredientUnit);
             ingredients.add(ingredient);
         }
         return ingredients;
@@ -75,11 +77,11 @@ public class MealContentProviderHelper {
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             int mealPlanId = cursor.getInt(cursor.getColumnIndex(MealPlanEntry.COLUMN_ID));
             String mealPlanName = cursor.getString(cursor.getColumnIndex(MealPlanEntry.COLUMN_NAME));
-            Cursor mealMealPlanCursor = ctx.getContentResolver().query(MealMealPlanRelationshipEntry.buildMealPlanUriWithId(mealPlanId), null, null, null, null, null);
+            Cursor mealMealPlanCursor = ctx.getContentResolver().query(MealPlanMealRelationshipEntry.buildMealPlanUriWithId(mealPlanId), null, null, null, null, null);
 
             List<Meal> meals = new ArrayList<>();
             for (mealMealPlanCursor.moveToFirst(); !mealMealPlanCursor.isAfterLast(); mealMealPlanCursor.moveToNext()) {
-                int mealId = mealMealPlanCursor.getInt(mealMealPlanCursor.getColumnIndex(MealMealPlanRelationshipEntry.COLUMN_MEAL_ID));
+                int mealId = mealMealPlanCursor.getInt(mealMealPlanCursor.getColumnIndex(MealPlanMealRelationshipEntry.COLUMN_MEAL_ID));
                 Cursor mealsCursor = ctx.getContentResolver().query(MealEntry.buildMealUriWithId(mealId), null, null, null, null, null);
                 for (mealsCursor.moveToFirst(); !mealsCursor.isAfterLast(); mealsCursor.moveToNext()) {
                     String mealName = mealsCursor.getString(mealsCursor.getColumnIndex(MealEntry.COLUMN_NAME));
@@ -109,9 +111,53 @@ public class MealContentProviderHelper {
     public void saveMealMealPlanRelationship(int mealPlanId, List<Meal> meals) {
         for(Meal meal : meals) {
             ContentValues values = new ContentValues();
-            values.put(MealMealPlanRelationshipEntry.COLUMN_MEAL_PLAN_ID, mealPlanId);
-            values.put(MealMealPlanRelationshipEntry.COLUMN_MEAL_ID, meal.getId());
-            ctx.getContentResolver().insert(MealMealPlanRelationshipEntry.MEAL_MEAL_PLAN_RELATIONSHIP_URI, values);
+            values.put(MealPlanMealRelationshipEntry.COLUMN_MEAL_PLAN_ID, mealPlanId);
+            values.put(MealPlanMealRelationshipEntry.COLUMN_MEAL_ID, meal.getId());
+            ctx.getContentResolver().insert(MealPlanMealRelationshipEntry.MEAL_MEAL_PLAN_RELATIONSHIP_URI, values);
         }
+    }
+
+    public List<ShoppingList> fetchAllShoppingLists() {
+        Cursor cursor = ctx.getContentResolver().query(ShoppingListEntry.SHOPPING_LIST_URI, null, null, null, null, null);
+        List<ShoppingList> shoppingLists = new ArrayList<>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            ShoppingList shoppingList = null;
+            List<Ingredient> ingredients = new ArrayList<>();
+            int shoppingListId = cursor.getInt(cursor.getColumnIndex(ShoppingListEntry.COLUMN_ID));
+            String shoppingListName = cursor.getString(cursor.getColumnIndex(ShoppingListEntry.COLUMN_NAME));
+
+            Cursor relationShipCursor = ctx.getContentResolver().query(ShoppingListIngredientRelationshipEntry.buildShoppingListIngredientRelationshipUriWithId(shoppingListId), null, null, null, null, null);
+            for (relationShipCursor.moveToFirst(); !relationShipCursor.isAfterLast(); relationShipCursor.moveToNext()) {
+                int ingredientId = relationShipCursor.getInt(relationShipCursor.getColumnIndex(ShoppingListIngredientRelationshipEntry.COLUMN_INGREDIENT_ID));
+
+                Cursor ingredientCursor = ctx.getContentResolver().query(IngredientEntry.buildIngredientUriWithId(ingredientId), null, null, null, null, null);
+                for (ingredientCursor.moveToFirst(); !ingredientCursor.isAfterLast(); ingredientCursor.moveToNext()) {
+                    String ingredientName = ingredientCursor.getString(ingredientCursor.getColumnIndex(IngredientEntry.COLUMN_NAME));
+                    double ingredientQuantity = ingredientCursor.getDouble(ingredientCursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY));
+                    String ingredientUnit = ingredientCursor.getString(ingredientCursor.getColumnIndex(IngredientEntry.COLUMN_UNIT));
+                    Ingredient ingredient = new Ingredient(0, ingredientName, ingredientQuantity, ingredientUnit);
+                    ingredients.add(ingredient);
+                }
+            }
+
+            shoppingList = new ShoppingList(shoppingListName, ingredients);
+            shoppingLists.add(shoppingList);
+        }
+        return shoppingLists;
+    }
+
+    public void saveShoppingList(ShoppingList shoppingList) {
+        ContentValues values = new ContentValues();
+        values.put(ShoppingListEntry.COLUMN_NAME, shoppingList.getName());
+        Uri uri = ctx.getContentResolver().insert(ShoppingListEntry.SHOPPING_LIST_URI, values);
+        String shoppingListId = uri.getLastPathSegment();
+
+        for(Ingredient ingredient : shoppingList.getIngredients()) {
+            ContentValues shoppingListIngredientContentValues = new ContentValues();
+            shoppingListIngredientContentValues.put(ShoppingListIngredientRelationshipEntry.COLUMN_SHOPPING_LIST_ID, shoppingListId);
+            shoppingListIngredientContentValues.put(ShoppingListIngredientRelationshipEntry.COLUMN_INGREDIENT_ID, ingredient.getId());
+            ctx.getContentResolver().insert(ShoppingListIngredientRelationshipEntry.SHOPPING_LIST_INGREDIENT_RELATIONSHIP_URI, shoppingListIngredientContentValues);
+        }
+
     }
 }

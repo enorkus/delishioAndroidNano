@@ -32,7 +32,8 @@
 
         <activity android:name=".activity.MealDetailsActivity" />
         <activity android:name=".activity.AddMealPlanActivity" />
-        <activity android:name=".activity.MealPlanDetailsActivity"></activity>
+        <activity android:name=".activity.MealPlanDetailsActivity" />
+        <activity android:name=".activity.ShoppingListDetailsActivity"></activity>
     </application>
 
 </manifest>

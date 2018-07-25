@@ -1,9 +1,12 @@
 package com.enorkus.delishio.activity;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.enorkus.delishio.R;
@@ -21,6 +24,8 @@ public class MealPlanDetailsActivity extends AppCompatActivity {
     protected TextView mealPlanName;
     @BindView(R.id.mealPlanDetails_meals)
     protected RecyclerView meals;
+    @BindView(R.id.generateShoppingListFAB)
+    protected FloatingActionButton generateShoppingListFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +36,18 @@ public class MealPlanDetailsActivity extends AppCompatActivity {
     }
 
     private void setupLayout() {
-        MealPlan mealPlan = getIntent().getParcelableExtra(EXTRA_MEAL_PLAN);
+        final MealPlan mealPlan = getIntent().getParcelableExtra(EXTRA_MEAL_PLAN);
         meals.setLayoutManager(new LinearLayoutManager(this));
         meals.setAdapter(new MealListAdapter(mealPlan.getMeals(), this));
+
+        generateShoppingListFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ShoppingListDetailsActivity.class);
+                intent.putExtra(EXTRA_MEAL_PLAN, mealPlan);
+                startActivity(intent);
+            }
+        });
+
     }
 }

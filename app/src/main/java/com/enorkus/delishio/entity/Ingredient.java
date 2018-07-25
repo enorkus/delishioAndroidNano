@@ -11,6 +11,14 @@ public class Ingredient implements Parcelable {
     private double quantity;
     private String unit;
 
+    public Ingredient(int id, int mealId, String name, double quantity, String unit) {
+        this.id = id;
+        this.mealId = mealId;
+        this.name = name;
+        this.quantity = quantity;
+        this.unit = unit;
+    }
+
     public Ingredient(int mealId, String name, double quantity, String unit) {
         this.mealId = mealId;
         this.name = name;

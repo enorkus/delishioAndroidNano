@@ -48,7 +48,7 @@ public class DatabaseContract {
         }
     }
 
-    public static final class MealMealPlanRelationshipEntry implements BaseColumns {
+    public static final class MealPlanMealRelationshipEntry implements BaseColumns {
         public static final String TABLE_NAME = "mealMealPlanRelationship";
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_MEAL_ID = "mealId";
@@ -58,6 +58,31 @@ public class DatabaseContract {
 
         public static Uri buildMealPlanUriWithId(long id) {
             return MEAL_MEAL_PLAN_RELATIONSHIP_URI.buildUpon().appendPath(String.valueOf(id)).build();
+        }
+    }
+
+    public static final class ShoppingListEntry implements BaseColumns {
+        public static final String TABLE_NAME = "shoppingList";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_NAME = "name";
+
+        public static final Uri SHOPPING_LIST_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+
+        public static Uri buildShoppingListUriWithId(long id) {
+            return SHOPPING_LIST_URI.buildUpon().appendPath(String.valueOf(id)).build();
+        }
+    }
+
+    public static final class ShoppingListIngredientRelationshipEntry implements BaseColumns {
+        public static final String TABLE_NAME = "shoppingListIngredientRelationship";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_SHOPPING_LIST_ID = "shoppingListId";
+        public static final String COLUMN_INGREDIENT_ID = "ingredientId";
+
+        public static final Uri SHOPPING_LIST_INGREDIENT_RELATIONSHIP_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+
+        public static Uri buildShoppingListIngredientRelationshipUriWithId(long id) {
+            return SHOPPING_LIST_INGREDIENT_RELATIONSHIP_URI.buildUpon().appendPath(String.valueOf(id)).build();
         }
     }
 
