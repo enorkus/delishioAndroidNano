@@ -58,8 +58,8 @@ public class MealListAdapter extends RecyclerView.Adapter<MealListAdapter.ViewHo
             File file = new File(dir, pictureName);
             Picasso.with(ctx)
                     .load(file)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.meal_default)
+                    .error(R.drawable.meal_default)
                     .into(mealImageView);
     }
 

@@ -1,6 +1,7 @@
 package com.enorkus.delishio;
 
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.bottomNavigation)
     protected BottomNavigationView bottomNavigation;
+    @BindView(R.id.mainActivity_fab)
+    protected FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +31,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new MealsListFragment()).commit();
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationItemSelectListener(fragmentManager));
+    }
+
+    public FloatingActionButton getFAB() {
+        return fab;
     }
 }

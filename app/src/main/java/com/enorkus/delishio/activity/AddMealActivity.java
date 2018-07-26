@@ -133,8 +133,8 @@ public class AddMealActivity extends AppCompatActivity {
             String pictureURL = data.getStringExtra(SearchMealImageActivity.EXTRA_MEAL_PICTURE_URL);
             Picasso.with(this)
                     .load(pictureURL)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .placeholder(R.drawable.meal_default)
+                    .error(R.drawable.meal_default)
                     .into(mealPicture);
         }
     }

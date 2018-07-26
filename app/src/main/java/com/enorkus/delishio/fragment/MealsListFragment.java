@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.adapter.MealListAdapter;
@@ -32,8 +33,6 @@ public class MealsListFragment extends Fragment {
 
     @BindView(R.id.mealsListRecyclerView)
     protected RecyclerView mealsListRecyclerView;
-    @BindView(R.id.mealsListFab)
-    protected FloatingActionButton fab;
 
     public MealsListFragment() {
     }
@@ -50,6 +49,7 @@ public class MealsListFragment extends Fragment {
         RecyclerView.Adapter adapter = new MealListAdapter(meals, getContext());
         mealsListRecyclerView.setAdapter(adapter);
 
+        FloatingActionButton fab = ((MainActivity)getActivity()).getFAB();
         fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

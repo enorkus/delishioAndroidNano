@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealPlanActivity;
 import com.enorkus.delishio.adapter.MealPLanListAdapter;
@@ -26,8 +27,6 @@ public class MealPlansFragment extends Fragment {
 
     @BindView(R.id.mealPlansRecyclerView)
     protected RecyclerView mealPlansRecyclerView;
-    @BindView(R.id.mealPlansFab)
-    protected FloatingActionButton fab;
 
     private MealPLanListAdapter adapter;
     private MealContentProviderHelper contentHelper;
@@ -47,6 +46,7 @@ public class MealPlansFragment extends Fragment {
         adapter = new MealPLanListAdapter(mealPlans, getContext());
         mealPlansRecyclerView.setAdapter(adapter);
 
+        FloatingActionButton fab = ((MainActivity)getActivity()).getFAB();
         fab.setImageResource(R.drawable.ic_add_white_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

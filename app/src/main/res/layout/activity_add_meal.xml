@@ -23,7 +23,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/meal_default"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.design.widget.TextInputLayout

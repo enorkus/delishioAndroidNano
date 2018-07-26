@@ -18,6 +18,8 @@
             android:layout_height="256dp"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:expandedTitleMarginStart="24dp"
+            app:expandedTitleMarginBottom="24dp"
             app:collapsedTitleTextAppearance="@style/ToolBar.TitleText"
             app:expandedTitleTextAppearance="@style/ToolBar.TitleText">
 
