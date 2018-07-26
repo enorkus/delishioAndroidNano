@@ -1,10 +1,12 @@
 package com.enorkus.delishio.activity;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,10 +26,12 @@ public class MealDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.mealDetails_mealPicture)
     protected ImageView mealPicture;
-    @BindView(R.id.mealDetails_mealName)
-    protected TextView mealName;
     @BindView(R.id.mealDetails_ingredientList)
     protected RecyclerView ingredientList;
+    @BindView(R.id.mealDetails_mealNameToolbar)
+    protected Toolbar toolbar;
+    @BindView(R.id.mealDetails_coolapsingToolbar)
+    protected CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,15 @@ public class MealDetailsActivity extends AppCompatActivity {
                 .error(R.drawable.ic_launcher_foreground)
                 .into(mealPicture);
 
-        mealName.setText(meal.getName());
+        collapsingToolbarLayout.setTitle(meal.getName());
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         ingredientList.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.Adapter adapter = new IngredientListAdapter(this, meal.getIngredients());
         ingredientList.setAdapter(adapter);

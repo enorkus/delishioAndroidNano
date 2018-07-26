@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listItemIngredient_name"
-    android:layout_gravity="center"
-    android:padding="8dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-</TextView>
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/listItemIngredient_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/textSize16sp"/>
+
+    <TextView
+        android:id="@+id/listItemIngredient_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/textSize16sp"/>
+
+    <TextView
+        android:id="@+id/listItemIngredient_of"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="@string/of"
+        android:textSize="@dimen/textSize16sp"/>
+
+
+    <TextView
+        android:id="@+id/listItemIngredient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/textSize16sp"/>
+</LinearLayout>
