@@ -3,6 +3,8 @@
         <shape android:shape="rectangle" />
     </item>
     <item
+        android:top="4dp"
+        android:left="96dp"
         android:width="24dp"
         android:height="24dp"
         android:gravity="right|center_vertical">
