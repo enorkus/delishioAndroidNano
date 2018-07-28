@@ -18,9 +18,10 @@
     <string name="search_example_cupcakes">Search example: Cupcakes</string>
     <string name="meal_plan_name">Name</string>
     <string name="choose_meals">Choose Meals</string>
+    <string name="select_picture">Select Picture</string>
 
     <string-array name="units">
-        <item> </item>
+        <item>no unit</item>
         <item>grams</item>
         <item>milliliters</item>
         <item>cups</item>
@@ -28,7 +29,5 @@
         <item>tablespoons</item>
         <item>some</item>
     </string-array>
-
-    <string name="of">of</string>
 
 </resources>

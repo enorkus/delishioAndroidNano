@@ -2,7 +2,6 @@ package com.enorkus.delishio.fragment;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,17 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.adapter.MealListAdapter;
-import com.enorkus.delishio.data.DatabaseContract;
 import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Meal;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,7 +46,7 @@ public class MealsListFragment extends Fragment {
         mealsListRecyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = ((MainActivity)getActivity()).getFAB();
-        fab.setImageResource(R.drawable.ic_add_white_24dp);
+        fab.setImageResource(R.drawable.icon_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

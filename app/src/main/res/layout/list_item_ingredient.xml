@@ -18,15 +18,6 @@
         android:textSize="@dimen/textSize16sp"/>
 
     <TextView
-        android:id="@+id/listItemIngredient_of"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:text="@string/of"
-        android:textSize="@dimen/textSize16sp"/>
-
-
-    <TextView
         android:id="@+id/listItemIngredient_name"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

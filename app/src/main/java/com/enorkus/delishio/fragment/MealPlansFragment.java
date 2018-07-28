@@ -47,7 +47,7 @@ public class MealPlansFragment extends Fragment {
         mealPlansRecyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = ((MainActivity)getActivity()).getFAB();
-        fab.setImageResource(R.drawable.ic_add_white_24dp);
+        fab.setImageResource(R.drawable.icon_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

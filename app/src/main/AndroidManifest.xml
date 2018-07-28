@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AddMealActivity" />
+        <activity android:name=".activity.AddMealActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.SearchMealImageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -31,7 +32,8 @@
             android:exported="false" />
 
         <activity android:name=".activity.MealDetailsActivity" />
-        <activity android:name=".activity.AddMealPlanActivity" />
+        <activity android:name=".activity.AddMealPlanActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".activity.MealPlanDetailsActivity" />
         <activity android:name=".activity.ShoppingListDetailsActivity"></activity>
     </application>

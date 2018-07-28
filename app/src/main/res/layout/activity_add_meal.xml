@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,9 +21,9 @@
                 android:layout_height="200dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:scaleType="centerCrop"
-                android:foregroundGravity="center"
                 android:foreground="@drawable/overlay_change_picture"
+                android:foregroundGravity="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/meal_default"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +55,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:paddingBottom="96dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,17 +100,10 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
+                            android:background="@drawable/spinner_background"
                             android:entries="@array/units"
                             android:paddingEnd="12dp"
-                            android:background="@drawable/spinner_background"
                             android:spinnerMode="dialog" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="5dp"
-                            android:text="of " />
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/mealIngredientLayout"
@@ -132,12 +123,16 @@
                     </LinearLayout>
 
                     <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/removeIngredientBtn"
+                        android:id="@+id/addMeal_addIngredientBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="3"
-                        android:visibility="invisible"
+                        android:src="@drawable/icon_add"
+                        app:backgroundTint="@color/green"
+                        android:clickable="true"
+                        app:elevation="2dp"
+                        android:focusable="true"
                         app:fabSize="mini" />
 
                 </LinearLayout>
@@ -146,32 +141,14 @@
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/addMealCancelBtn"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addMeal_saveMealfab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="48dp"
-        android:layout_marginLeft="16dp"
-        android:text="@string/cancel"/>
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/icon_check"
+        app:backgroundTint="@color/green" />
 
-    <Button
-        android:id="@+id/addMealIngredientButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="48dp"
-        android:text="@string/add_meal_ingredient"/>
-
-    <Button
-        android:id="@+id/addMealSaveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="48dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/save"/>
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

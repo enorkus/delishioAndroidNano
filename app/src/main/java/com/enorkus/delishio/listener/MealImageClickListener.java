@@ -2,6 +2,9 @@ package com.enorkus.delishio.listener;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,22 +23,24 @@ public class MealImageClickListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        final Dialog dialog = new Dialog(ctx);
-        dialog.setContentView(R.layout.meal_picture_choose_dialog);
-        Button chooseImageGaleryBtn = dialog.findViewById(R.id.chooseImageGalery);
-        Button chooseImageInternet = dialog.findViewById(R.id.chooseImageInternet);
-        chooseImageGaleryBtn.setOnClickListener(new View.OnClickListener() {
+
+        LayoutInflater factory = LayoutInflater.from(ctx);
+        final View dialogView = factory.inflate(R.layout.meal_picture_choose_dialog, null);
+        final Dialog dialog = new AlertDialog.Builder(ctx).setView(dialogView).create();
+        ConstraintLayout searchInternetLayout = dialogView.findViewById(R.id.choosePicDialog_searchInternetLayout);
+        ConstraintLayout searchGaleryLayout = dialogView.findViewById(R.id.choosePicDialog_searchGaleryLayout);
+        searchGaleryLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                ctx.startActivityForResult(Intent.createChooser(intent, "Select Picture"), AddMealActivity.PICK_IMAGE);
+                ctx.startActivityForResult(Intent.createChooser(intent, ctx.getResources().getString(R.string.select_picture)), AddMealActivity.PICK_IMAGE);
                 dialog.dismiss();
             }
         });
 
-        chooseImageInternet.setOnClickListener(new View.OnClickListener() {
+        searchInternetLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ctx, SearchMealImageActivity.class);

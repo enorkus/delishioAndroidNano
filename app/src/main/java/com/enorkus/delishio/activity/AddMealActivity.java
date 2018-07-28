@@ -8,13 +8,18 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
@@ -38,14 +43,12 @@ public class AddMealActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1;
     public static final int SEARCH_IMAGE = 2;
-    @BindView(R.id.addMealIngredientButton)
-    protected Button addIngredientBtn;
+    @BindView(R.id.addMeal_addIngredientBtn)
+    protected FloatingActionButton addIngredientBtn;
     @BindView(R.id.ingredientsLinearLayout)
     protected LinearLayout ingredientsLayout;
-    @BindView(R.id.addMealSaveBtn)
-    protected Button saveMealBtn;
-    @BindView(R.id.addMealCancelBtn)
-    protected Button cancelBtn;
+    @BindView(R.id.addMeal_saveMealfab)
+    protected FloatingActionButton saveMealFAB;
 
     @BindView(R.id.mealPicture)
     protected ImageView mealPicture;
@@ -71,13 +74,7 @@ public class AddMealActivity extends AppCompatActivity {
         final AddMealIngredientClickListener listener = new AddMealIngredientClickListener(this);
         addIngredientBtn.setOnClickListener(listener);
         mealPicture.setOnClickListener(new MealImageClickListener(this));
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-        saveMealBtn.setOnClickListener(new View.OnClickListener() {
+        saveMealFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bitmap mealPic = ((BitmapDrawable)mealPicture.getDrawable()).getBitmap();
@@ -100,11 +97,11 @@ public class AddMealActivity extends AppCompatActivity {
                 for(View row : listener.getIngredientRows()){
                     EditText ingredientName = row.findViewById(R.id.ingredientRowName);
                     EditText ingredientQuantity = row.findViewById(R.id.ingredientRowQuantity);
-                    Spinner ingredientUnit = row.findViewById(R.id.ingredientRowUnitsSpinner);
+                    Spinner ingredientUnitSpinner = row.findViewById(R.id.ingredientRowUnitsSpinner);
 
                     String name = ingredientName.getText().toString();
                     double quantity = Double.parseDouble(ingredientQuantity.getText().toString());
-                    String unit = ingredientUnit.getSelectedItem().toString();
+                    String unit = ingredientUnitSpinner.getSelectedItem().toString();
                     ingredients.add(new Ingredient(0, name, quantity, unit));
                 }
 
@@ -112,6 +109,24 @@ public class AddMealActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+
+            }
+        });
+
+        ingredientUnitSpinner.setSelection(0, true);
+        View spinnerView = ingredientUnitSpinner.getSelectedView();
+        ((TextView)spinnerView).setTextColor(getResources().getColor(R.color.gray));
+
+        ingredientUnitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(ingredientUnitSpinner.getSelectedItem().toString().equals("no unit")) {
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.gray));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
