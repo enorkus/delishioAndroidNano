@@ -17,8 +17,10 @@
     <string name="search_internet">Search on internet</string>
     <string name="search_example_cupcakes">Search example: Cupcakes</string>
     <string name="meal_plan_name">Name</string>
-    <string name="choose_meals">Choose Meals</string>
+    <string name="add_meals">Add meals</string>
     <string name="select_picture">Select Picture</string>
+    <string name="search_images">Search images</string>
+    <string name="delishio">Delishio</string>
 
     <string-array name="units">
         <item>no unit</item>

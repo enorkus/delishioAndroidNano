@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealPlanActivity;
+import com.enorkus.delishio.adapter.AddMealPlanMealListAdapter;
 import com.enorkus.delishio.adapter.ChooseMealsListAdapter;
 import com.enorkus.delishio.adapter.MealListAdapter;
 import com.enorkus.delishio.data.MealContentProviderHelper;
@@ -47,7 +48,7 @@ public class AddMealPlanFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         selectedMealsList.setLayoutManager(new LinearLayoutManager(activity));
-        selectedMealsList.setAdapter(new MealListAdapter(activity != null ? activity.getSelectedMeals() : new ArrayList<Meal>(), activity));
+        selectedMealsList.setAdapter(new AddMealPlanMealListAdapter(activity != null ? activity.getSelectedMeals() : new ArrayList<Meal>(), activity));
 
         activity = (AddMealPlanActivity) getActivity();
         activity.setFABOnClickListener(new View.OnClickListener() {

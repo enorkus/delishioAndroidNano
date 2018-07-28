@@ -41,8 +41,8 @@ public class PictureListAdapter extends RecyclerView.Adapter<PictureListAdapter.
         final Picture picture = pictures.get(position);
         Picasso.with(ctx)
                 .load(picture.getWebformatURL())
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_foreground)
+                .placeholder(R.drawable.meal_default)
+                .error(R.drawable.meal_default)
                 .into(holder.picture);
         holder.picture.setOnClickListener(new View.OnClickListener() {
             @Override

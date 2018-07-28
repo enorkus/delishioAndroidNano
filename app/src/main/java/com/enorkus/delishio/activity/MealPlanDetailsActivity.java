@@ -1,11 +1,13 @@
 package com.enorkus.delishio.activity;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,12 +22,14 @@ public class MealPlanDetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_MEAL_PLAN = MealPlanDetailsActivity.class.getName() + ".extramealplan";
 
-    @BindView(R.id.mealPlanDetails_mealPlanName)
-    protected TextView mealPlanName;
     @BindView(R.id.mealPlanDetails_meals)
     protected RecyclerView meals;
     @BindView(R.id.generateShoppingListFAB)
     protected FloatingActionButton generateShoppingListFAB;
+    @BindView(R.id.mealPlanDetails_toolbar)
+    protected Toolbar toolbar;
+    @BindView(R.id.mealPlanDetails_collapsingToolbar)
+    protected CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,7 @@ public class MealPlanDetailsActivity extends AppCompatActivity {
     }
 
     private void setupLayout() {
+
         final MealPlan mealPlan = getIntent().getParcelableExtra(EXTRA_MEAL_PLAN);
         meals.setLayoutManager(new LinearLayoutManager(this));
         meals.setAdapter(new MealListAdapter(mealPlan.getMeals(), this));
@@ -49,5 +54,7 @@ public class MealPlanDetailsActivity extends AppCompatActivity {
             }
         });
 
+        collapsingToolbarLayout.setTitleEnabled(false);
+        toolbar.setTitle(mealPlan.getName());
     }
 }

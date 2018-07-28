@@ -40,8 +40,6 @@ public class SearchMealImageActivity extends AppCompatActivity implements AsyncT
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
-        task = new ImageSearchTask(this);
-        task.execute(ConnectionUtils.buildImageSearchURL("cupcake"));
     }
 
     @Override
