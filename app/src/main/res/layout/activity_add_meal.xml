@@ -23,6 +23,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:scaleType="centerCrop"
+                android:foregroundGravity="center"
+                android:foreground="@drawable/overlay_change_picture"
                 android:src="@drawable/meal_default"
                 app:layout_constraintTop_toTopOf="parent" />
 
