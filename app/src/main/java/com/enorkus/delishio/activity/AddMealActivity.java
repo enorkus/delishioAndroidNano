@@ -91,7 +91,7 @@ public class AddMealActivity extends AppCompatActivity {
                 //Default ingredient
                 ingredients.add(new Ingredient(0,
                         ingredientNameInput.getText().toString(),
-                        Double.valueOf(ingredientQuantityInput.getText().toString()),
+                        ingredientQuantityInput.getText().toString().equals("") ? 0 : Double.valueOf(ingredientQuantityInput.getText().toString()),
                         ingredientUnitSpinner.getSelectedItem().toString()));
                 //Added Ingredients
                 for(View row : listener.getIngredientRows()){

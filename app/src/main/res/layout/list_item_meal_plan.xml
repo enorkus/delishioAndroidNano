@@ -19,7 +19,8 @@
         android:scaleType="centerCrop"
         android:src="@drawable/plan_default"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/description_meal_image" />
 
     <TextView
         android:id="@+id/mealPlans_mealPlanName"

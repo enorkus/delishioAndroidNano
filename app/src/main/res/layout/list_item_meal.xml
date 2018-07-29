@@ -19,7 +19,8 @@
         android:scaleType="centerCrop"
         android:foreground="@drawable/meal_picture_overlay"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/description_meal_image" />
 
     <TextView
         android:id="@+id/listItemMeal"

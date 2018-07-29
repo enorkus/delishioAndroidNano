@@ -22,6 +22,11 @@
     <string name="search_images">Search images</string>
     <string name="delishio">Delishio</string>
     <string name="shopping_list_name">Name</string>
+    <string name="description_search_internet">Search image on internet</string>
+    <string name="description_search_galery">Search image on galery</string>
+    <string name="description_meal_image">Meal image</string>
+    <string name="description_image_result">Search result image</string>
+    <string name="description_shopping_list_item">Shopping list item</string>
 
     <string-array name="units">
         <item>no unit</item>
