@@ -12,6 +12,9 @@ import com.enorkus.delishio.activity.ShoppingListDetailsActivity;
 import com.enorkus.delishio.fragment.MealsListFragment;
 import com.enorkus.delishio.fragment.ShoppingListsFragment;
 import com.enorkus.delishio.listener.BottomNavigationItemSelectListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

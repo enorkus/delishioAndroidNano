@@ -24,6 +24,9 @@ import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Meal;
 import com.enorkus.delishio.entity.MealPlan;
 import com.enorkus.delishio.loader.MealsListLoader;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,8 @@ public class MealsListFragment extends Fragment implements LoaderManager.LoaderC
 
     @BindView(R.id.mealsListRecyclerView)
     protected RecyclerView mealsListRecyclerView;
+    @BindView(R.id.adView)
+    protected AdView adView;
 
     private MealListAdapter adapter;
 
@@ -48,6 +53,10 @@ public class MealsListFragment extends Fragment implements LoaderManager.LoaderC
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_meals_list, container, false);
         ButterKnife.bind(this, rootView);
+
+        MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544/6300978111");
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         mealsListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new MealListAdapter(getContext());
