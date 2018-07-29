@@ -56,5 +56,11 @@ public class MealPlanDetailsActivity extends AppCompatActivity {
 
         collapsingToolbarLayout.setTitleEnabled(false);
         toolbar.setTitle(mealPlan.getName());
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 }

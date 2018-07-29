@@ -1,10 +1,12 @@
 package com.enorkus.delishio.adapter;
 
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enorkus.delishio.R;
@@ -35,7 +37,7 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ShoppingList shoppingList = shoppingListLists.get(position);
         holder.shoppingListName.setText(shoppingList.getName());
-        holder.shoppingListName.setOnClickListener(new View.OnClickListener() {
+        holder.shoppingListCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ShoppingListDetailsActivity.class);
@@ -52,10 +54,13 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView shoppingListName;
+        private CardView shoppingListCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
             shoppingListName = itemView.findViewById(R.id.listItemShoppingList_name);
+            shoppingListCard = itemView.findViewById(R.id.listItemShoppingList_card);
+
         }
     }
 }

@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.MealPlanDetailsActivity;
 import com.enorkus.delishio.entity.MealPlan;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -61,11 +63,13 @@ public class MealPLanListAdapter extends RecyclerView.Adapter<MealPLanListAdapte
 
         private TextView mealPlanName;
         private CardView mealPlansListCard;
+        private ImageView mealPlanImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mealPlanName = itemView.findViewById(R.id.mealPlans_mealPlanName);
             mealPlansListCard = itemView.findViewById(R.id.mealPlansListCard);
+            mealPlanImage = itemView.findViewById(R.id.mealPlans_mealImage);
         }
     }
 }

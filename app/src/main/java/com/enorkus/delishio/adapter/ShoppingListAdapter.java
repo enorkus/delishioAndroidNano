@@ -31,7 +31,8 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Ingredient ingredient = ingredients.get(position);
-        holder.groceryItem.setText(ingredient.getName());
+        String groceryItem = String.valueOf(ingredient.getQuantity() + " " + ingredient.getUnit() + " " + ingredient.getName());
+        holder.groceryItem.setText(groceryItem);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            groceryItem = itemView.findViewById(R.id.groceryItem);
+            groceryItem = itemView.findViewById(R.id.listItemGrocery_groceryItem);
         }
     }
 }

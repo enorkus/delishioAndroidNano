@@ -14,9 +14,18 @@
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp">
 
+    <ImageView
+        android:id="@+id/mealPlans_mealImage"
+        android:scaleType="centerCrop"
+        android:src="@drawable/plan_default"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/mealPlans_mealPlanName"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textSize20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

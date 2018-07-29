@@ -1,5 +1,6 @@
 package com.enorkus.delishio.activity;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.adapter.ShoppingListAdapter;
 import com.enorkus.delishio.data.MealContentProviderHelper;
@@ -71,6 +73,9 @@ public class ShoppingListDetailsActivity extends AppCompatActivity {
                     ShoppingList shoppingList = new ShoppingList(shoppingListName.getText().toString(), allIngredients);
                     MealContentProviderHelper helper = new MealContentProviderHelper(view.getContext());
                     helper.saveShoppingList(shoppingList);
+                    Intent intent = new Intent(view.getContext(), MainActivity.class);
+                    intent.putExtra(EXTRA_SHOPPING_LIST, true);
+                    startActivity(intent);
                 }
             });
         }
