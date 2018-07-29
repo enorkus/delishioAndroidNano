@@ -41,7 +41,6 @@ public class MealPlansFragment extends Fragment implements LoaderManager.LoaderC
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_meal_plans, container, false);
         ButterKnife.bind(this, rootView);
-
         mealPlansRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new MealPlanListAdapter(getContext());
         mealPlansRecyclerView.setAdapter(adapter);

@@ -1,20 +1,17 @@
 package com.enorkus.delishio;
 
-import android.os.PersistableBundle;
+import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 
 import com.enorkus.delishio.activity.ShoppingListDetailsActivity;
 import com.enorkus.delishio.fragment.MealsListFragment;
 import com.enorkus.delishio.fragment.ShoppingListsFragment;
 import com.enorkus.delishio.listener.BottomNavigationItemSelectListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

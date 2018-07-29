@@ -2,12 +2,10 @@ package com.enorkus.delishio.fragment;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,14 +17,14 @@ import com.enorkus.delishio.MainActivity;
 import com.enorkus.delishio.R;
 import com.enorkus.delishio.activity.AddMealActivity;
 import com.enorkus.delishio.adapter.MealListAdapter;
-import com.enorkus.delishio.data.DatabaseContract;
-import com.enorkus.delishio.data.MealContentProviderHelper;
 import com.enorkus.delishio.entity.Meal;
-import com.enorkus.delishio.entity.MealPlan;
+import com.enorkus.delishio.google.DelishioApplication;
 import com.enorkus.delishio.loader.MealsListLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +42,7 @@ public class MealsListFragment extends Fragment implements LoaderManager.LoaderC
     protected AdView adView;
 
     private MealListAdapter adapter;
+    private Tracker tracker;
 
     public MealsListFragment() {
     }
@@ -53,6 +52,8 @@ public class MealsListFragment extends Fragment implements LoaderManager.LoaderC
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_meals_list, container, false);
         ButterKnife.bind(this, rootView);
+        DelishioApplication application = (DelishioApplication) getActivity().getApplication();
+        tracker = application.getDefaultTracker();
 
         MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544/6300978111");
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -70,6 +71,10 @@ public class MealsListFragment extends Fragment implements LoaderManager.LoaderC
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddMealActivity.class);
                 startActivity(intent);
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Create Meal")
+                        .build());
             }
         });
 
