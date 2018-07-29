@@ -4,13 +4,19 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.enorkus.delishio.entity.Meal;
 import com.enorkus.delishio.entity.ShoppingList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.enorkus.delishio.data.DatabaseContract.*;
 
@@ -29,6 +35,7 @@ public class MealContentProvider extends ContentProvider {
     public static final int INGREDIENT_IDS_BY_SHOPPING_LIST_ID = 503;
 
     private DatabaseHelper helper;
+    private MealContentProviderHelper contentHelper = new MealContentProviderHelper(getContext());
 
     private static final UriMatcher uriMatcher = buildUriMatcher();
 
@@ -76,15 +83,12 @@ public class MealContentProvider extends ContentProvider {
                 break;
             }
             case MEAL: {
-                cursor = helper.getReadableDatabase().query(
-                        MealEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
+                cursor = helper.getReadableDatabase().rawQuery(
+                        "SELECT meal.id, meal.name, meal.picturePath, ingredient.id as ingredientId, ingredient.name as ingredientName, ingredient.quantity, ingredient.unit " +
+                                "FROM meal " +
+                                "LEFT JOIN ingredient on meal.id = ingredient.mealId " +
+                                "order by meal.id",
+                        null);
                 break;
             }
             case INGREDIENT_BY_MEAL_ID: {

@@ -12,6 +12,12 @@ public class Meal implements Parcelable {
     private String picturePath;
     private List<Ingredient> ingredients;
 
+    public Meal(int id, String name, String picturePath) {
+        this.id = id;
+        this.name = name;
+        this.picturePath = picturePath;
+    }
+
     public Meal(String name, String picturePath, List<Ingredient> ingredients) {
         this.name = name;
         this.picturePath = picturePath;
@@ -71,5 +77,9 @@ public class Meal implements Parcelable {
 
     public List<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }

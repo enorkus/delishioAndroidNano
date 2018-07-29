@@ -49,7 +49,15 @@ public class ShoppingListsAdapter extends RecyclerView.Adapter<ShoppingListsAdap
 
     @Override
     public int getItemCount() {
+        if(null == shoppingListLists) {
+            return 0;
+        }
         return shoppingListLists.size();
+    }
+
+    public void setShoppingListLists(List<ShoppingList> shoppingListLists) {
+        this.shoppingListLists = shoppingListLists;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -45,14 +45,27 @@ public class MealContentProviderHelper {
     public List<Meal> fetchAllMeals() {
         Cursor cursor =  ctx.getContentResolver().query(MealEntry.MEAL_URI, null, null, null, null, null);
         List<Meal> meals = new ArrayList<>();
+        List<Ingredient> ingredients = new ArrayList<>();
+        Meal currentMeal = new Meal(0, "", "");
+
+        int currentMealId = 0;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             int mealId = cursor.getInt(cursor.getColumnIndex(MealEntry.COLUMN_ID));
-            String name = cursor.getString(cursor.getColumnIndex(MealEntry.COLUMN_NAME));
-            String picturePath = cursor.getString(cursor.getColumnIndex(MealEntry.COLUMN_PICTURE_PATH));
-
-            //Fetch ingredients
-            List<Ingredient> ingredients = fetchIngredientsByMealId(mealId);
-            meals.add(new Meal(mealId, name, picturePath, ingredients));
+            //avoid duplicates since query is joined with ingredients table
+            if(currentMealId != mealId) {
+                currentMealId = mealId;
+                ingredients = new ArrayList<>();
+                String mealName = cursor.getString(cursor.getColumnIndex(MealEntry.COLUMN_NAME));
+                String picturePath = cursor.getString(cursor.getColumnIndex(MealEntry.COLUMN_PICTURE_PATH));
+                currentMeal = new Meal(mealId, mealName, picturePath);
+                meals.add(currentMeal);
+            }
+            int ingredientId = cursor.getInt(cursor.getColumnIndex("ingredientId"));
+            String ingredientName = cursor.getString(cursor.getColumnIndex("ingredientName"));
+            String ingredientUnit = cursor.getString(cursor.getColumnIndex(IngredientEntry.COLUMN_UNIT));
+            double ingredientQuantity = cursor.getDouble(cursor.getColumnIndex(IngredientEntry.COLUMN_QUANTITY));
+            ingredients.add(new Ingredient(ingredientId, ingredientName, ingredientQuantity, ingredientUnit));
+            currentMeal.setIngredients(ingredients);
         }
         return meals;
     }
