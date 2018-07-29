@@ -1,5 +1,6 @@
 package com.enorkus.delishio;
 
+import android.os.PersistableBundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String BOTTOM_NAVIGATION_SELECTED_ID = MainActivity.class.getName() + ".bottomNavSelectedId";
     @BindView(R.id.bottomNavigation)
     protected BottomNavigationView bottomNavigation;
     @BindView(R.id.mainActivity_fab)
@@ -27,20 +29,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        createLaytout();
+        createLaytout(savedInstanceState);
     }
 
-    private void createLaytout() {
+    private void createLaytout(Bundle savedInstanceState) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        boolean isFromGenerateShoppingList = getIntent().getBooleanExtra(ShoppingListDetailsActivity.EXTRA_SHOPPING_LIST, false);
-        if(isFromGenerateShoppingList) {
-            fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ShoppingListsFragment()).commit();
-            bottomNavigation.setSelectedItemId(R.id.menuShoppingList);
-            fab.setVisibility(View.GONE);
+        if(savedInstanceState != null) {
+            bottomNavigation.setSelectedItemId(savedInstanceState.getInt(BOTTOM_NAVIGATION_SELECTED_ID));
         } else {
-            fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new MealsListFragment()).commit();
+            boolean isFromGenerateShoppingList = getIntent().getBooleanExtra(ShoppingListDetailsActivity.EXTRA_SHOPPING_LIST, false);
+            if(isFromGenerateShoppingList) {
+                fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ShoppingListsFragment()).commit();
+                bottomNavigation.setSelectedItemId(R.id.menuShoppingList);
+                fab.setVisibility(View.GONE);
+            } else {
+                fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new MealsListFragment()).commit();
+            }
         }
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationItemSelectListener(fragmentManager, fab));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(BOTTOM_NAVIGATION_SELECTED_ID, bottomNavigation.getSelectedItemId());
 
     }
 

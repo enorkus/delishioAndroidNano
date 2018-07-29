@@ -29,9 +29,11 @@ public class BottomNavigationItemSelectListener implements BottomNavigationView.
         Fragment selectedFragment = null;
         if(id == R.id.menuMeal) {
             fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new MealsListFragment()).commit();
+            fab.setVisibility(View.VISIBLE);
             return true;
         } else if(id == R.id.menuMealPlan) {
             fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new MealPlansFragment()).commit();
+            fab.setVisibility(View.VISIBLE);
             return true;
         } else if(id == R.id.menuShoppingList) {
             fragmentManager.beginTransaction().replace(R.id.fragmentContainer, new ShoppingListsFragment()).commit();
