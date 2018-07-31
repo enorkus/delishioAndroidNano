@@ -25,6 +25,9 @@ android {
             signingConfig signingConfigs.config
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'PixabayAPIKey', PixabayAPIKey
+    }
 }
 
 dependencies {
