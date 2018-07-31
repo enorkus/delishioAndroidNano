@@ -36,7 +36,11 @@ public class MealContentProviderHelper {
             ingredientValues.put(IngredientEntry.COLUMN_MEAL_ID, mealId);
             ingredientValues.put(IngredientEntry.COLUMN_NAME, ingredient.getName());
             ingredientValues.put(IngredientEntry.COLUMN_QUANTITY, ingredient.getQuantity());
-            ingredientValues.put(IngredientEntry.COLUMN_UNIT, ingredient.getUnit());
+            if(ingredient.getUnit().equals("no unit")) {
+                ingredientValues.put(IngredientEntry.COLUMN_UNIT, "");
+            } else {
+                ingredientValues.put(IngredientEntry.COLUMN_UNIT, ingredient.getUnit());
+            }
             ctx.getContentResolver().insert(IngredientEntry.INGREDIENT_URI, ingredientValues);
         }
         return uri;
