@@ -100,7 +100,7 @@ public class AddMealActivity extends AppCompatActivity {
                     Spinner ingredientUnitSpinner = row.findViewById(R.id.ingredientRowUnitsSpinner);
 
                     String name = ingredientName.getText().toString();
-                    double quantity = Double.parseDouble(ingredientQuantity.getText().toString());
+                    double quantity = ingredientQuantity.getText().toString().equals("") ? 0 : Double.parseDouble(ingredientQuantity.getText().toString());
                     String unit = ingredientUnitSpinner.getSelectedItem().toString();
                     ingredients.add(new Ingredient(0, name, quantity, unit));
                 }
