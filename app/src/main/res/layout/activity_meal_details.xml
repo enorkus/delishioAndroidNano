@@ -30,7 +30,8 @@
                 android:fitsSystemWindows="true"
                 android:foreground="@drawable/meal_picture_overlay"
                 android:scaleType="centerCrop"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/description_meal_image"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/mealDetails_mealNameToolbar"

@@ -25,7 +25,8 @@
                 android:foregroundGravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/meal_default"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/description_meal_image"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/mealNameInputLayout"
@@ -149,6 +150,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/icon_check"
-        app:backgroundTint="@color/green" />
+        app:backgroundTint="@color/green"
+        android:contentDescription="@string/description_save_meal"/>
 
 </android.support.design.widget.CoordinatorLayout>

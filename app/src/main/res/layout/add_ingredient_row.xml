@@ -67,6 +67,7 @@
         android:focusable="true"
         android:src="@drawable/ic_remove_white_24dp"
         app:backgroundTint="@color/red"
-        app:fabSize="mini" />
+        app:fabSize="mini"
+        android:contentDescription="@string/description_remove_ingredient"/>
 
 </LinearLayout>

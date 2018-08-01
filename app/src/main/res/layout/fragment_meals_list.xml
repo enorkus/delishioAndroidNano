@@ -9,6 +9,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mealsListRecyclerView"
+        android:layout_marginTop="80dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:clipToPadding="false"

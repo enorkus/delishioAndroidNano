@@ -71,6 +71,7 @@ public class MealContentProviderHelper {
             ingredients.add(new Ingredient(ingredientId, ingredientName, ingredientQuantity, ingredientUnit));
             currentMeal.setIngredients(ingredients);
         }
+        cursor.close();
         return meals;
     }
 
@@ -85,6 +86,7 @@ public class MealContentProviderHelper {
             Ingredient ingredient = new Ingredient(ingredientId, mealId, ingredientName, ingredientQuantity, ingredientUnit);
             ingredients.add(ingredient);
         }
+        ingredientsCursor.close();
         return ingredients;
     }
 
@@ -108,11 +110,14 @@ public class MealContentProviderHelper {
                     Meal meal = new Meal(mealName, picturePath, ingredients);
                     meals.add(meal);
                 }
+                mealsCursor.close();
+                mealMealPlanCursor.close();
             }
 
             MealPlan mealPlan = new MealPlan(mealPlanName, meals);
             mealPlans.add(mealPlan);
         }
+        cursor.close();
         return mealPlans;
     }
 
@@ -155,11 +160,14 @@ public class MealContentProviderHelper {
                     Ingredient ingredient = new Ingredient(0, ingredientName, ingredientQuantity, ingredientUnit);
                     ingredients.add(ingredient);
                 }
+                ingredientCursor.close();
+                relationShipCursor.close();
             }
 
             shoppingList = new ShoppingList(shoppingListName, ingredients);
             shoppingLists.add(shoppingList);
         }
+        cursor.close();
         return shoppingLists;
     }
 

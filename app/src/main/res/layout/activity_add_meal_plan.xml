@@ -19,6 +19,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/icon_check"
-        app:backgroundTint="@color/green" />
+        app:backgroundTint="@color/green"
+        android:contentDescription="@string/description_save_meal_plan"/>
 
 </android.support.design.widget.CoordinatorLayout>

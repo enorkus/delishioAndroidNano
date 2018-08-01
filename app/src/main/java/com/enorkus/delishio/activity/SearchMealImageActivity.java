@@ -1,6 +1,7 @@
 package com.enorkus.delishio.activity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,6 +19,7 @@ import com.enorkus.delishio.entity.Picture;
 import com.enorkus.delishio.util.AsyncTaskResponse;
 import com.enorkus.delishio.util.ConnectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,11 +28,17 @@ import butterknife.ButterKnife;
 public class SearchMealImageActivity extends AppCompatActivity implements AsyncTaskResponse, SearchView.OnQueryTextListener {
 
     public static final String EXTRA_MEAL_PICTURE_URL = SearchMealImageActivity.class.getSimpleName() + "_EXTRA_MEAL_PICTURE_URL";
+    private static final String PICTURES_LAYOUT_STATE_KEY = "picturesLayout";
+    private static final String PICTURES_SEARCH_RESULT_KEY = "picturesResult";
+    private static int picturesViewPosition = 0;
 
     @BindView(R.id.picturesRecyclerView)
     protected RecyclerView picturesRecyclerView;
 
     private ImageSearchTask task;
+    private GridLayoutManager picturesLayoutManager;
+    private Parcelable picturesLayoutState;
+    private ArrayList<Picture> picturesResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,13 @@ public class SearchMealImageActivity extends AppCompatActivity implements AsyncT
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
+        if(savedInstanceState != null) {
+            picturesLayoutState = savedInstanceState.getParcelable(PICTURES_LAYOUT_STATE_KEY);
+            picturesResponse = savedInstanceState.getParcelableArrayList(PICTURES_SEARCH_RESULT_KEY);
+            picturesLayoutManager = new GridLayoutManager(this, 2);
+            picturesRecyclerView.setLayoutManager(picturesLayoutManager);
+            picturesRecyclerView.setAdapter(new PictureListAdapter(this, picturesResponse));
+        }
     }
 
     @Override
@@ -56,9 +71,10 @@ public class SearchMealImageActivity extends AppCompatActivity implements AsyncT
 
     @Override
     public void getAsyncResponseOnFinish(List<?> response) {
-        RecyclerView.Adapter adapter = new PictureListAdapter(this, (List<Picture>)response);
-        picturesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        picturesRecyclerView.setAdapter(adapter);
+        picturesResponse = (ArrayList<Picture>)response;
+        picturesLayoutManager = new GridLayoutManager(this, 2);
+        picturesRecyclerView.setLayoutManager(picturesLayoutManager);
+        picturesRecyclerView.setAdapter(new PictureListAdapter(this, picturesResponse));
     }
 
     @Override
@@ -71,5 +87,12 @@ public class SearchMealImageActivity extends AppCompatActivity implements AsyncT
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
+    }
+
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        picturesLayoutState = picturesLayoutManager.onSaveInstanceState();
+        state.putParcelable(PICTURES_LAYOUT_STATE_KEY, picturesLayoutState);
+        state.putParcelableArrayList(PICTURES_SEARCH_RESULT_KEY, picturesResponse);
     }
 }

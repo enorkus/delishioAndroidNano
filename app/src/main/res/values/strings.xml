@@ -28,6 +28,13 @@
     <string name="description_image_result">Search result image</string>
     <string name="description_shopping_list_item">Shopping list item</string>
     <string name="shopping_list_added_to_widget">Shopping list added to widget</string>
+    <string name="search">Search</string>
+    <string name="description_save_meal">Save meal</string>
+    <string name="description_remove_ingredient">Remove ingredient</string>
+    <string name="description_save_shopping_list">Save shopping list</string>
+    <string name="description_generate_shopping_list">Generate shopping list</string>
+    <string name="description_add_new">Add new</string>
+    <string name="description_save_meal_plan">Save meal plan</string>
 
     <string-array name="units">
         <item>no unit</item>
